@@ -4,9 +4,11 @@ from todo_logic import update_task, task_list
 app = Flask(__name__)
 @app.route("/update", methods=["PUT"])
 def update():
+    #extracting data
     data = request.json
     index = data["index"]
     task = data["task"]
+    #function call
     result = update_task(task_list, task, index)
     return jsonify(result)
 if __name__ == '__main__':
