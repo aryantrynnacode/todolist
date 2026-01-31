@@ -1,7 +1,14 @@
 from flask import Flask, request, jsonify
 from todo_logic import update_task, task_list, add_task, delete_task
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
 @app.route("/task/<int:index>", methods=["PUT"])
 def update_task_route(index):
     data = request.json
@@ -27,4 +34,6 @@ def delete_task_route(index):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+     with app.app_context(): 
+        db.create_all() 
+     app.run(debug=True)
