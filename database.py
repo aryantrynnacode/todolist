@@ -1,14 +1,6 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-app = Flask(__name__)
+from sqlalchemy import create_engine, MetaData
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+DATABASE_URL = "sqlite:///site.db"
 
-db = SQLAlchemy(app)
-
-
-if __name__ == '__main__':
-     with app.app_context(): 
-        db.create_all() 
-     app.run(debug=True)
+engine = create_engine(DATABASE_URL, echo=True)
+metadata_obj = MetaData()
