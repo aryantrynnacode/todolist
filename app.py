@@ -1,11 +1,9 @@
-from flask import Flask, request, jsonify
-from todo_logic import update_task, task_list, add_task, delete_task
+from flask import Flask, request, jsonify, url_for
+from crud import update_task, task_list, add_task, delete_task
 from database import engine, metadata
 import models
 
 app = Flask(__name__)
-
-
 
 @app.route("/task/<int:index>", methods=["PUT"])
 def update_task_route(index):
